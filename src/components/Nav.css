@@ -1,0 +1,29 @@
+.Nav {
+    background-color: #083d77;
+    height: 4em;
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.logo {
+    max-width: 48px;
+    max-height: 48px;
+}
+
+.navContainer {
+    display: flex;
+    align-items: center;
+}
+
+.navItem {
+    margin-left: .5em;
+    margin-right: .5em;
+}
+
+.navItem:hover {
+    color: black;
+}
