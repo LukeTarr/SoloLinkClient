@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "./App.css";
-import Nav from "./components/Nav";
+import "./Home.css";
+import Nav from "../Nav/Nav";
 
-const App = () => {
+const Home = () => {
   return (
     <div className="App">
       <Nav />
@@ -10,4 +10,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Home;
