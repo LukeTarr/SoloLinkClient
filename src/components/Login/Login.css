@@ -32,6 +32,13 @@
     width: 40%;
 }
 
+.errorContainer {
+    margin-top: 1em;
+    color: rgb(184, 64, 64);
+    font-size: 24px;
+    font-weight: 800;
+}
+
 input {
     color: black;
     background-color: #eee;
