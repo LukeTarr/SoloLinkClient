@@ -7,33 +7,32 @@ import toast, { Toaster } from "react-hot-toast";
 type loginDto = {
   Error?: string;
   Token?: string;
-  title: string;
+  title?: string;
 };
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const query = useMutation("auth", sendLoginRequest, {
+  const mut = useMutation("auth", sendLoginRequest, {
     retry: false,
     onSettled: (res) => {
-      console.log(res);
-
       // Custom Error
       if (res?.Error) {
         toast.error(res.Error);
         return;
       }
-
       // Generic Server Error
       if (res?.title) {
         toast.error(res.title);
         return;
       }
-
       // Success
       if (res?.Token) {
         toast.success("Logged in!");
+        return;
       }
+
+      toast.error("Unknown Error");
     },
   });
 
@@ -43,13 +42,19 @@ const Login = () => {
       password: password,
     };
 
-    const res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Auth/Login`, {
-      body: JSON.stringify(requestBody),
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    let res;
+
+    try {
+      res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Auth/Login`, {
+        body: JSON.stringify(requestBody),
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+    } catch {
+      return { title: "Server Error" };
+    }
 
     return await res.json();
   }
@@ -87,7 +92,7 @@ const Login = () => {
           <button
             id="login"
             onClick={() => {
-              query.mutateAsync();
+              mut.mutateAsync();
             }}
           >
             LOGIN
