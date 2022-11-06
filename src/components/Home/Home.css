@@ -3,16 +3,3 @@
     justify-content: center;
     align-items: center;
 }
-
-.card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 5em;
-    padding: 3em;
-    background-color: rgba(183, 183, 183, .8);
-    border-radius: 12px;
-    text-align: center;
-    max-width: 50em;
-}

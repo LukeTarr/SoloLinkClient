@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation } from "react-query";
 import "./Login.css";
+import "../../index.css";
 import toast, { Toaster } from "react-hot-toast";
 
 type loginDto = {
@@ -62,7 +63,7 @@ const Login = () => {
   return (
     <div className="loginContainer">
       <Toaster />
-      <div className="loginCard">
+      <div className="card">
         <h1>Login</h1>
         <div className="inputContainer">
           <label htmlFor="email">Email</label>

@@ -1,6 +1,5 @@
 import "./Home.css";
-import Nav from "../Nav/Nav";
-import slide from "../../assets/slide1.jpg";
+import "../../index.css";
 
 const Home = () => {
   return (
