@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import "./Login.css";
 import "../../index.css";
 import toast, { Toaster } from "react-hot-toast";
+import { useRecoilState } from "recoil";
+import { tokenAtom } from "../../stateAtoms";
 
 type loginDto = {
   Error?: string;
@@ -14,6 +16,9 @@ type loginDto = {
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [token, setToken] = useRecoilState(tokenAtom);
+  const navigate = useNavigate();
+
   const mut = useMutation("auth", sendLoginRequest, {
     retry: false,
     onSettled: (res) => {
@@ -29,7 +34,9 @@ const Login = () => {
       }
       // Success
       if (res?.Token) {
+        setToken(res.Token);
         toast.success("Logged in!");
+        navigate("/Dashboard");
         return;
       }
 
