@@ -47,9 +47,9 @@ button {
     min-width: 8em;
     height: 3em;
     border: none;
-    border-radius: 12px;
+    border-radius: 1em;
     font-weight: 800;
-    color: black
+    color: black;
 }
 
 #register {

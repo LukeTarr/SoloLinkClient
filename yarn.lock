@@ -454,6 +454,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-icons@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "@types/react-icons@npm:3.0.0"
+  dependencies:
+    react-icons: "*"
+  checksum: 885a9e9d43fd5543c3405b75b7d4f910492bd3bf2a2aa0a6784c6566fc3a9804bd0f6b0678779b4a15df642c35db0069a1d3f3f2c548bfc8414d5abe1fcc6469
+  languageName: node
+  linkType: hard
+
 "@types/react-query@npm:^1.2.9":
   version: 1.2.9
   resolution: "@types/react-query@npm:1.2.9"
@@ -1702,6 +1711,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-icons@npm:*, react-icons@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "react-icons@npm:4.6.0"
+  peerDependencies:
+    react: "*"
+  checksum: a08375d4563e381e156d826a8d551dd26c1bf7c424a79139173bf4c8df71e884badd7d4f5fe9faa0d73d18ace265bcc89891b65fd8f808812b1011b612ebbc53
+  languageName: node
+  linkType: hard
+
 "react-query@npm:*, react-query@npm:^3.39.2":
   version: 3.39.2
   resolution: "react-query@npm:3.39.2"
@@ -1960,11 +1978,13 @@ __metadata:
     "@types/node": ^18.11.9
     "@types/react": ^18.0.22
     "@types/react-dom": ^18.0.7
+    "@types/react-icons": ^3.0.0
     "@types/react-query": ^1.2.9
     "@vitejs/plugin-react": ^2.2.0
     react: ^18.2.0
     react-dom: ^18.2.0
     react-hot-toast: ^2.4.0
+    react-icons: ^4.6.0
     react-query: ^3.39.2
     react-router-dom: ^6.4.2
     recoil: ^0.7.6

@@ -37,7 +37,8 @@ html, body {
   margin: 5em;
   padding: 3em;
   background-color: rgba(183, 183, 183, .8);
-  border-radius: 12px;
+  border-radius: 1em;
   text-align: center;
   width: 50em;
+  box-shadow: 8px 5px 5px black;
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
 import "./Login.css";
 import "../../index.css";
@@ -45,6 +45,13 @@ const Login = () => {
   });
 
   async function sendLoginRequest(): Promise<loginDto> {
+    if (!email) {
+      return { title: "Email is required" };
+    }
+
+    if (!password) {
+      return { title: "Password is required" };
+    }
     const requestBody = {
       email: email,
       password: password,
