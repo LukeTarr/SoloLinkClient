@@ -20,6 +20,10 @@
     justify-content: center;
 }
 
+.dashCard:hover{
+    cursor: pointer;
+}
+
 .icon {
     width: 6em;
     height: 6em;

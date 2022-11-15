@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
 import Nav from "./components/Nav/Nav";
+import Page from "./components/Page/Page";
 import { tokenAtom } from "./stateAtoms";
 
 const App = () => {
@@ -25,6 +26,7 @@ const App = () => {
           {token && ( // logged in only routes
             <>
               <Route path="/Dashboard" element={<Dashboard />} />
+              <Route path="/Page" element={<Page />} />
             </>
           )}
         </Routes>
