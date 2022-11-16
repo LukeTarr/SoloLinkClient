@@ -3,7 +3,7 @@ import "../../index.css";
 
 const Home = () => {
   return (
-    <div className="homeContainer">
+    <div className="flex justify-center items-center">
       <div className="card">
         <h1>Welcome to SoloLink!</h1>
         <h3>
