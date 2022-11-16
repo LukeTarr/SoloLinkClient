@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import "../../index.css";
+import "../../../index.css";
 import toast, { Toaster } from "react-hot-toast";
 import { useRecoilState } from "recoil";
-import { tokenAtom } from "../../stateAtoms";
+import { tokenAtom } from "../../../stateAtoms";
 
 type loginDto = {
   Error?: string;

@@ -1,7 +1,7 @@
-import logo from "../../assets/link.png";
+import logo from "../../../assets/link.png";
 import { Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { tokenAtom } from "../../stateAtoms";
+import { tokenAtom } from "../../../stateAtoms";
 
 const Nav = () => {
   const [token, setToken] = useRecoilState(tokenAtom);

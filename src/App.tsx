@@ -1,11 +1,11 @@
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import Dashboard from "./components/Dashboard/Dashboard";
-import Home from "./components/Home/Home";
-import Login from "./components/Login/Login";
-import Nav from "./components/Nav/Nav";
-import Page from "./components/Page/Page";
+import Dashboard from "./components/Pages/Dashboard/Dashboard";
+import Home from "./components/Pages//Home/Home";
+import Login from "./components/Pages//Login/Login";
+import Nav from "./components/Pages//Nav/Nav";
+import Page from "./components/Pages//Page/Page";
 import { tokenAtom } from "./stateAtoms";
 
 const App = () => {
