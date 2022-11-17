@@ -76,7 +76,7 @@ const Login = () => {
   return (
     <div className="flex flex-shrink justify-center items-center">
       <Toaster />
-      <div className="card">
+      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-1/2 shadow-2xl">
         <h1 className="text-3xl mb-8">Login</h1>
         <div className="flex flex-col mb-8">
           <label htmlFor="email" className="text-xl my-2">
