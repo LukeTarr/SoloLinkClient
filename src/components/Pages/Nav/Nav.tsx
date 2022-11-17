@@ -17,29 +17,28 @@ const Nav = () => {
 
       {!token && (
         <div className="flex items-center">
-          <Link className="link" to={"/Register"}>
-            <a className="m-2 hover:text-black">Register</a>
+          <Link className="m-2 hover:text-black" to={"/Register"}>
+            Register
           </Link>
-          <Link className="link" to={"/Login"}>
-            <a className="m-2 hover:text-black">Login</a>
+          <Link className="m-2 hover:text-black" to={"/Login"}>
+            Login
           </Link>
         </div>
       )}
 
       {token && (
         <div className="navContainer">
-          <Link className="link" to={"/Dashboard"}>
-            <a className="m-2 hover:text-black">Dashboard</a>
+          <Link className="m-2 hover:text-black" to={"/Dashboard"}>
+            Dashboard
           </Link>
-          <Link className="link" to={"/Login"}>
-            <a
-              className="m-2 hover:text-black"
-              onClick={() => {
-                setToken("");
-              }}
-            >
-              Logout
-            </a>
+          <Link
+            className="m-2 hover:text-black"
+            to={"/Login"}
+            onClick={() => {
+              setToken("");
+            }}
+          >
+            Logout
           </Link>
         </div>
       )}

@@ -77,7 +77,7 @@ const Login = () => {
     <div className="flex flex-shrink justify-center items-center">
       <Toaster />
       <div className="card">
-        <h1 className="text-3xl mb-8 font-bold">Login</h1>
+        <h1 className="text-3xl mb-8">Login</h1>
         <div className="flex flex-col mb-8">
           <label htmlFor="email" className="text-xl my-2">
             Email
