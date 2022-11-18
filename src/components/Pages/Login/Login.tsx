@@ -74,11 +74,11 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-shrink justify-center items-center">
+    <div className="flex justify-center items-center">
       <Toaster />
-      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-1/2 shadow-2xl">
+      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-full md:w-1/2 shadow-2xl">
         <h1 className="text-3xl mb-8">Login</h1>
-        <div className="flex flex-col mb-8">
+        <div className="flex flex-col mb-8 items-center justify-center">
           <label htmlFor="email" className="text-xl my-2">
             Email
           </label>
@@ -89,7 +89,7 @@ const Login = () => {
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            className="text-black bg-white my-4 w-60 h-8 rounded text-center"
+            className="text-black bg-white my-4 w-32 md:w-full h-8 rounded text-center"
           />
           <label htmlFor="password" className="text-xl my-2">
             Password
@@ -101,19 +101,11 @@ const Login = () => {
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            className="text-black bg-white my-4 w-60 h-8 rounded text-center"
+            className="text-black bg-white my-4 w-32 md:w-full h-8 rounded text-center"
           />
         </div>
 
         <div className="flex flex-nowrap items-center h-12 mt-1 justify-evenly">
-          <Link to="/Register">
-            <button
-              id="register"
-              className="mx-4 w-40 h-10 rounded font-extrabold  bg-blue-500 hover:bg-blue-400"
-            >
-              REGISTER
-            </button>
-          </Link>
           <button
             id="login"
             className="mx-4 w-40 h-10 rounded font-extrabold bg-green-500 hover:bg-green-400"
@@ -121,7 +113,7 @@ const Login = () => {
               mut.mutateAsync();
             }}
           >
-            LOGIN
+            LOGIN →
           </button>
         </div>
       </div>

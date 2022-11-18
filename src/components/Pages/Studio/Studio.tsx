@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil";
 import { contentDTO } from "../../../data/contentDTO";
 import { tokenAtom } from "../../../stateAtoms";
 
-const Page = () => {
+const Studio = () => {
   const token = useRecoilValue(tokenAtom);
   const [content, setContent] = useState({} as contentDTO);
   const [error, setError] = useState("");
@@ -64,4 +64,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default Studio;

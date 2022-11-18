@@ -5,7 +5,7 @@ import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import Home from "./components/Pages//Home/Home";
 import Login from "./components/Pages//Login/Login";
 import Nav from "./components/Pages//Nav/Nav";
-import Page from "./components/Pages//Page/Page";
+import Studio from "./components/Pages/Studio/Studio";
 import { tokenAtom } from "./stateAtoms";
 
 const App = () => {
@@ -26,7 +26,7 @@ const App = () => {
           {token && ( // logged in only routes
             <>
               <Route path="/Dashboard" element={<Dashboard />} />
-              <Route path="/Page" element={<Page />} />
+              <Route path="/Studio" element={<Studio />} />
             </>
           )}
         </Routes>

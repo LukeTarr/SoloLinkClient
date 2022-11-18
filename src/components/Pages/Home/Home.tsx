@@ -3,7 +3,7 @@ import "../../../index.css";
 const Home = () => {
   return (
     <div className="flex justify-center items-center">
-      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-1/2 shadow-2xl">
+      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-full md:w-1/2 shadow-2xl">
         <h1 className="text-3xl mb-4">Welcome to SoloLink!</h1>
         <h3>
           SoloLink is a free and open source alternative to services like

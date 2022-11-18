@@ -6,7 +6,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-center justify-center mt-40">
+    <div className="flex flex-col md:flex-row items-center justify-center mt-40 ">
       <DashCard
         component={() => {
           navigate("/Account");
@@ -18,10 +18,10 @@ const Dashboard = () => {
 
       <DashCard
         component={() => {
-          navigate("/Page");
+          navigate("/Studio");
         }}
         icon={<CgFeed className="w-24 h-24" />}
-        title={"Page"}
+        title={"Studio"}
         subtext={"Edit your public page"}
       />
 

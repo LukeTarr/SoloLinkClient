@@ -8,7 +8,7 @@ type DashCardProps = {
 const DashCard = ({ icon, title, subtext, component }: DashCardProps) => {
   return (
     <div
-      className="flex flex-col items-center justify-center py-20 w-1/4 h-1/4 bg-gray-400 m-8 rounded-xl shadow-2xl flex-nowrap cursor-pointer"
+      className="flex flex-col items-center justify-center py-20 w-3/4 h-1/6 md:w-1/4 md:h-1/4 bg-gray-400 m-8 rounded-xl shadow-2xl flex-nowrap cursor-pointer"
       onClick={component}
     >
       {icon && icon}
