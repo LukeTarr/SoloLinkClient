@@ -1,19 +1,18 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
-import "../../../index.css";
+import React, { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { useRecoilState } from "recoil";
-import { tokenAtom } from "../../../stateAtoms";
-import LoginDto from "../../../data/loginDTO";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
+import RegisterDTO from "../../../data/RegisterDTO";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [token, setToken] = useRecoilState(tokenAtom);
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+
   const navigate = useNavigate();
 
-  const mut = useMutation("login", sendLoginRequest, {
+  const mut = useMutation("register", sendLoginRequest, {
     retry: false,
     onSettled: (res) => {
       // Custom Error
@@ -27,10 +26,8 @@ const Login = () => {
         return;
       }
       // Success
-      if (res?.Token) {
-        setToken(res.Token);
-        toast.success("Logged in!");
-        navigate("/Dashboard");
+      if (res?.Message) {
+        navigate("/Login");
         return;
       }
 
@@ -38,23 +35,34 @@ const Login = () => {
     },
   });
 
-  async function sendLoginRequest(): Promise<LoginDto> {
+  async function sendLoginRequest(): Promise<RegisterDTO> {
     if (!email) {
+      return { title: "Email is required" };
+    }
+
+    if (!username) {
       return { title: "Email is required" };
     }
 
     if (!password) {
       return { title: "Password is required" };
     }
+
+    if (!passwordRepeat) {
+      return { title: "Password is required" };
+    }
+
     const requestBody = {
       email: email,
+      username: username,
       password: password,
+      repeatPassword: passwordRepeat,
     };
 
     let res;
 
     try {
-      res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Auth/Login`, {
+      res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Auth/Register`, {
         body: JSON.stringify(requestBody),
         method: "POST",
         headers: {
@@ -69,10 +77,10 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex justify-center items-center">
       <Toaster />
-      <div className="flex flex-col justify-center items-center m-20 mb-10 p-16 bg-gray-400 rounded-3xl text-center w-full md:w-1/2 shadow-2xl">
-        <h1 className="text-3xl mb-8">Login</h1>
+      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-full md:w-1/2 shadow-2xl">
+        <h1 className="text-3xl mb-8">Register</h1>
         <div className="flex flex-col mb-8 items-center justify-center">
           <label htmlFor="email" className="text-xl my-2">
             Email
@@ -83,6 +91,18 @@ const Login = () => {
             id="email"
             onChange={(e) => {
               setEmail(e.target.value);
+            }}
+            className="text-black bg-white my-4 w-full h-8 rounded text-center"
+          />
+          <label htmlFor="username" className="text-xl my-2">
+            Username
+          </label>
+          <input
+            type="username"
+            name="username"
+            id="username"
+            onChange={(e) => {
+              setUsername(e.target.value);
             }}
             className="text-black bg-white my-4 w-full h-8 rounded text-center"
           />
@@ -98,6 +118,18 @@ const Login = () => {
             }}
             className="text-black bg-white my-4 w-full h-8 rounded text-center"
           />
+          <label htmlFor="passwordRepeat" className="text-xl my-2">
+            Repeat Password
+          </label>
+          <input
+            type="password"
+            name="passwordRepeat"
+            id="passwordRepeat"
+            onChange={(e) => {
+              setPasswordRepeat(e.target.value);
+            }}
+            className="text-black bg-white my-4 w-ful h-8 rounded text-center"
+          />
         </div>
 
         <div className="flex flex-nowrap items-center h-12 mt-1 justify-evenly">
@@ -108,7 +140,7 @@ const Login = () => {
               mut.mutateAsync();
             }}
           >
-            LOGIN →
+            REGISTER →
           </button>
         </div>
       </div>
@@ -116,4 +148,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

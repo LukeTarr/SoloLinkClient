@@ -7,6 +7,7 @@ import Login from "./components/Pages//Login/Login";
 import Nav from "./components/Pages//Nav/Nav";
 import Studio from "./components/Pages/Studio/Studio";
 import { tokenAtom } from "./stateAtoms";
+import Register from "./components/Pages/Register/Register";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -21,6 +22,7 @@ const App = () => {
           {!token && ( // not logged in routes
             <>
               <Route path="/Login" element={<Login />} />
+              <Route path="/Register" element={<Register />} />
             </>
           )}
           {token && ( // logged in only routes

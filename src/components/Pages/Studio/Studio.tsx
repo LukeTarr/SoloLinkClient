@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import { contentDTO } from "../../../data/contentDTO";
+import ContentDTO from "../../../data/contentDTO";
 import { tokenAtom } from "../../../stateAtoms";
 
 const Studio = () => {
   const token = useRecoilValue(tokenAtom);
-  const [content, setContent] = useState({} as contentDTO);
+  const [content, setContent] = useState({} as ContentDTO);
   const [error, setError] = useState("");
   const query = useQuery("myContent", getMyContent, {
     onSettled: (res) => {
@@ -28,7 +28,7 @@ const Studio = () => {
     },
   });
 
-  async function getMyContent(): Promise<contentDTO> {
+  async function getMyContent(): Promise<ContentDTO> {
     let res;
     try {
       res = await fetch(

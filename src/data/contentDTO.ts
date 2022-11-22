@@ -1,4 +1,4 @@
-export type contentDTO = {
+type ContentDTO = {
     username?: string,
     categoryDtos?: [
         {
@@ -14,7 +14,8 @@ export type contentDTO = {
         title: string
     }]
     ,
-
     title?: string,
     Error?: string
-}
+};
+
+export default ContentDTO;
