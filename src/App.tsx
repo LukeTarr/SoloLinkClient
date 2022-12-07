@@ -8,6 +8,7 @@ import Nav from "./components/Pages//Nav/Nav";
 import Studio from "./components/Pages/Studio/Studio";
 import { tokenAtom } from "./stateAtoms";
 import Register from "./components/Pages/Register/Register";
+import Profile from "./components/Pages/Profile/Profile";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -19,6 +20,7 @@ const App = () => {
         <Nav />
         <Routes>
           <Route path="/*" element={<Home />} />
+          <Route path="/Profile/:username" element={<Profile />} />
           {!token && ( // not logged in routes
             <>
               <Route path="/Login" element={<Login />} />

@@ -2,14 +2,14 @@ type ContentDTO = {
     username?: string,
     categoryDtos?: [
         {
-            categoryID: number,
+            categoryId: number,
             userId: number
             title: string
         }
     ],
     linkDtos?: [{
         linkId: number,
-        categoryID: number,
+        categoryId: number,
         url: string,
         title: string
     }]
