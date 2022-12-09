@@ -6,7 +6,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center mt-40 ">
+    <div className="flex flex-col md:flex-row items-center justify-center mt-6 md:mt-40 ">
       <DashCard
         component={() => {
           navigate("/Account");

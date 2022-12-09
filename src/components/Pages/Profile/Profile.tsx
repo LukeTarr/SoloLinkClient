@@ -45,24 +45,26 @@ const Profile = () => {
 
   return (
     <div className="flex items-center justify-center mt-20">
-      <div className="flex flex-col items-center justify-center w-4/5 bg-gray-400 p-4 shadow-2xl">
+      <div className="flex flex-col items-center justify-center w-4/5 bg-gray-400 p-4 rounded-3xl shadow-2xl">
         {content.username ? (
           <>
             <h2 className="text-3xl">{content.username}'s Profile</h2>
 
-            <div>
+            <div className="w-full">
               {content.categoryDtos?.map((category, i) => {
                 return (
-                  <div>
-                    <h1 className="text-2xl underline">{category.title}</h1>
+                  <div className="w-full flex flex-col items-center justify-center">
+                    <h1 className="text-3xl underline mt-10">
+                      {category.title}
+                    </h1>
                     {content.linkDtos?.map((l) => {
                       if (l.categoryId === category.categoryId) {
                         return (
-                          <>
+                          <div className="bg-blue-500 hover:bg-blue-300 text-white rounded-3xl mt-10 h-8 w-1/4 text-center shadow-lg">
                             <a href={l.url}>
-                              <h1>- {l.title}</h1>
+                              <h1>{l.title}</h1>
                             </a>
-                          </>
+                          </div>
                         );
                       }
                     })}

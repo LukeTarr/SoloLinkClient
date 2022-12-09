@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "react-query";
-import "../../../index.css";
 import toast, { Toaster } from "react-hot-toast";
 import { useRecoilState } from "recoil";
 import { tokenAtom } from "../../../stateAtoms";
-import LoginDto from "../../../data/loginDTO";
+import LoginDto from "../../../data/LoginDTO";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -103,7 +102,7 @@ const Login = () => {
         <div className="flex flex-nowrap items-center h-12 mt-1 justify-evenly">
           <button
             id="login"
-            className="mx-4 w-40 h-10 rounded font-extrabold bg-green-500 hover:bg-green-400"
+            className="mx-4 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
             onClick={() => {
               mut.mutateAsync();
             }}

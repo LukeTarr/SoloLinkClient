@@ -135,7 +135,7 @@ const Register = () => {
         <div className="flex flex-nowrap items-center h-12 mt-1 justify-evenly">
           <button
             id="login"
-            className="mx-4 w-40 h-10 rounded font-extrabold bg-green-500 hover:bg-green-400"
+            className="mx-4 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
             onClick={() => {
               mut.mutateAsync();
             }}
