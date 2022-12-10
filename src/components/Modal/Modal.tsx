@@ -1,14 +1,52 @@
-import ContentDTO from "../../data/contentDTO";
+import { Dispatch, SetStateAction, useState } from "react";
+import { isHtmlElement } from "react-router-dom/dist/dom";
+import { CategoryDTO, LinkDTO } from "../../data/contentDTOs";
 
 type ModalProps = {
-  type: "edit" | "delete" | "add";
-  content: ContentDTO;
+  action: "edit" | "delete" | "add";
+  item: CategoryDTO | LinkDTO;
+  invisible: boolean;
+  setInvisible: Dispatch<SetStateAction<boolean>>;
 };
 
-const Modal = () => {
+const Modal = (props: ModalProps) => {
+  const getTitle = () => {
+    if (props.action === "edit") {
+      return "Edit Item";
+    } else if (props.action === "delete") {
+      return "Delete Item";
+    } else {
+      return "Add Item";
+    }
+  };
+
+  const getBody = () => {
+    if (props.action === "edit") {
+      return (
+        <div>
+          <h1>Edit</h1>
+        </div>
+      );
+    } else if (props.action === "delete") {
+      return (
+        <div>
+          <p>Are you sure you want to delete this item ({props.item.title})?</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <h1>Add</h1>
+        </div>
+      );
+    }
+  };
+
   return (
     <div
-      className="fixed z-10 inset-0 overflow-y-auto"
+      className={`fixed z-10 inset-0 overflow-y-auto ${
+        props.invisible && "invisible"
+      }`}
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -31,14 +69,10 @@ const Modal = () => {
                   className="text-lg leading-6 font-medium text-gray-900"
                   id="modal-title"
                 >
-                  Deactivate account
+                  {getTitle()}
                 </h3>
                 <div className="mt-2">
-                  <p className="text-sm text-gray-500">
-                    Are you sure you want to deactivate your account? All of
-                    your data will be permanently removed. This action cannot be
-                    undone.
-                  </p>
+                  <div className="text-sm text-gray-500">{getBody()}</div>
                 </div>
               </div>
             </div>
@@ -47,6 +81,9 @@ const Modal = () => {
             <button
               id="login"
               className="mx-4 w-24 h-10 rounded bg-green-500 hover:bg-green-400"
+              onClick={() => {
+                props.setInvisible(true);
+              }}
             >
               Save
             </button>

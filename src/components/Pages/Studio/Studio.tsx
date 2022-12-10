@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { CgAdd, CgPen, CgTrash } from "react-icons/cg";
-import ReactModal from "react-modal";
+import { CgPen, CgTrash } from "react-icons/cg";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
-import ContentDTO from "../../../data/contentDTO";
+import { CategoryDTO, ContentDTO, LinkDTO } from "../../../data/contentDTOs";
 import { tokenAtom } from "../../../stateAtoms";
 import Modal from "../../Modal/Modal";
 
@@ -11,7 +10,14 @@ const Studio = () => {
   const token = useRecoilValue(tokenAtom);
   const [content, setContent] = useState({} as ContentDTO);
   const [error, setError] = useState("");
+  const [selectedItem, setSelectedItem] = useState({} as LinkDTO | CategoryDTO);
+  const [selectedAction, setSelectedAction] = useState(
+    "" as "edit" | "delete" | "add"
+  );
+  const [hideModal, setHideModal] = useState(true);
+
   const query = useQuery("myContent", getMyContent, {
+    refetchOnWindowFocus: false,
     onSettled: (res) => {
       // Custom Error
       if (res?.Error) {
@@ -52,12 +58,16 @@ const Studio = () => {
 
   return (
     <div className="flex items-center justify-center mt-20">
-      {/* <Modal /> */}
+      <Modal
+        action={selectedAction}
+        item={selectedItem}
+        invisible={hideModal}
+        setInvisible={setHideModal}
+      />
       <div className="flex flex-col items-center justify-center w-4/5 bg-gray-400 p-4 rounded-3xl shadow-2xl">
         {content.username ? (
           <>
             <h2 className="text-3xl">{content.username}'s Profile</h2>
-
             <div className="w-full">
               {content.categoryDtos?.map((category, i) => {
                 return (
@@ -75,8 +85,22 @@ const Studio = () => {
                             >
                               <h1 key={l.linkId}>{l.title}</h1>
                             </a>
-                            <CgTrash className="w-12 h-8 hover:cursor-pointer" />
-                            <CgPen className="w-12 h-8 hover:cursor-pointer" />
+                            <CgTrash
+                              className="w-12 h-8 hover:cursor-pointer"
+                              onClick={() => {
+                                setSelectedItem(l);
+                                setSelectedAction("delete");
+                                setHideModal(false);
+                              }}
+                            />
+                            <CgPen
+                              className="w-12 h-8 hover:cursor-pointer"
+                              onClick={() => {
+                                setSelectedItem(l);
+                                setSelectedAction("edit");
+                                setHideModal(false);
+                              }}
+                            />
                           </div>
                         );
                       }

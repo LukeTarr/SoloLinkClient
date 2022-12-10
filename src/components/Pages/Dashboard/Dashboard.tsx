@@ -1,4 +1,4 @@
-import { CgProfile, CgFeed, CgInsights } from "react-icons/cg";
+import { CgFeed, CgInsights, CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 import DashCard from "../../DashCard/DashCard";
 

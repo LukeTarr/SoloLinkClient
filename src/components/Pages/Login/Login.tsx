@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useMutation } from "react-query";
 import toast, { Toaster } from "react-hot-toast";
+import { useMutation } from "react-query";
+import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { tokenAtom } from "../../../stateAtoms";
 import LoginDto from "../../../data/LoginDTO";
+import { tokenAtom } from "../../../stateAtoms";
 
 const Login = () => {
   const [email, setEmail] = useState("");

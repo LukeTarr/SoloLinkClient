@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "react-query";
-import { Link, useParams } from "react-router-dom";
-import ContentDTO from "../../../data/contentDTO";
+import { useParams } from "react-router-dom";
+import { ContentDTO } from "../../../data/contentDTOs";
 
 const Profile = () => {
   const { username } = useParams();
   const [content, setContent] = useState({} as ContentDTO);
   const [error, setError] = useState("");
   const query = useQuery("content", getContent, {
+    refetchOnWindowFocus: false,
     onSettled: (res) => {
       // Custom Error
       if (res?.Error) {
