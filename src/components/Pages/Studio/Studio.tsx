@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
 import { CategoryDTO, ContentDTO, LinkDTO } from "../../../data/contentDTOs";
 import { tokenAtom } from "../../../stateAtoms";
-import Modal from "../../Modal/Modal";
+import LinkModal from "../../Modals/LinkModal";
 
 const Studio = () => {
   const token = useRecoilValue(tokenAtom);
@@ -14,7 +14,7 @@ const Studio = () => {
   const [selectedAction, setSelectedAction] = useState(
     "" as "edit" | "delete" | "add"
   );
-  const [hideModal, setHideModal] = useState(true);
+  const [hideLinkModal, setHideLinkModal] = useState(true);
 
   const query = useQuery("myContent", getMyContent, {
     refetchOnWindowFocus: false,
@@ -58,16 +58,17 @@ const Studio = () => {
 
   return (
     <div className="flex items-center justify-center mt-20">
-      <Modal
+      <LinkModal
         action={selectedAction}
-        item={selectedItem}
-        invisible={hideModal}
-        setInvisible={setHideModal}
+        link={selectedItem as LinkDTO}
+        invisible={hideLinkModal}
+        setInvisible={setHideLinkModal}
+        content={content}
       />
       <div className="flex flex-col items-center justify-center w-4/5 bg-gray-400 p-4 rounded-3xl shadow-2xl">
         {content.username ? (
           <>
-            <h2 className="text-3xl">{content.username}'s Profile</h2>
+            <h2 className="text-3xl">{content.username}'s Studio</h2>
             <div className="w-full">
               {content.categoryDtos?.map((category, i) => {
                 return (
@@ -90,7 +91,7 @@ const Studio = () => {
                               onClick={() => {
                                 setSelectedItem(l);
                                 setSelectedAction("delete");
-                                setHideModal(false);
+                                setHideLinkModal(false);
                               }}
                             />
                             <CgPen
@@ -98,7 +99,7 @@ const Studio = () => {
                               onClick={() => {
                                 setSelectedItem(l);
                                 setSelectedAction("edit");
-                                setHideModal(false);
+                                setHideLinkModal(false);
                               }}
                             />
                           </div>
