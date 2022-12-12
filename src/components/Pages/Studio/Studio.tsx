@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CgPen, CgTrash } from "react-icons/cg";
 import { useQuery } from "react-query";
 import { useRecoilValue } from "recoil";
@@ -14,7 +14,14 @@ const Studio = () => {
   const [selectedAction, setSelectedAction] = useState(
     "" as "edit" | "delete" | "add"
   );
-  const [hideLinkModal, setHideLinkModal] = useState(true);
+  const [showLinkModal, setShowLinkModal] = useState(false);
+  const [showCategoryModal, setShowCategoryModal] = useState(false);
+
+  useEffect(() => {
+    if (showLinkModal === false) {
+      query.refetch();
+    }
+  }, [showLinkModal]);
 
   const query = useQuery("myContent", getMyContent, {
     refetchOnWindowFocus: false,
@@ -58,13 +65,16 @@ const Studio = () => {
 
   return (
     <div className="flex items-center justify-center mt-20">
-      <LinkModal
-        action={selectedAction}
-        link={selectedItem as LinkDTO}
-        invisible={hideLinkModal}
-        setInvisible={setHideLinkModal}
-        content={content}
-      />
+      {showLinkModal && (
+        <LinkModal
+          action={selectedAction}
+          link={selectedItem as LinkDTO}
+          hideSelf={() => {
+            setShowLinkModal(false);
+          }}
+          content={content}
+        />
+      )}
       <div className="flex flex-col items-center justify-center w-4/5 bg-gray-400 p-4 rounded-3xl shadow-2xl">
         {content.username ? (
           <>
@@ -91,7 +101,7 @@ const Studio = () => {
                               onClick={() => {
                                 setSelectedItem(l);
                                 setSelectedAction("delete");
-                                setHideLinkModal(false);
+                                setShowLinkModal(true);
                               }}
                             />
                             <CgPen
@@ -99,7 +109,7 @@ const Studio = () => {
                               onClick={() => {
                                 setSelectedItem(l);
                                 setSelectedAction("edit");
-                                setHideLinkModal(false);
+                                setShowLinkModal(true);
                               }}
                             />
                           </div>

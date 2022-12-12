@@ -1,29 +1,27 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
-import { LinkDTO, ContentDTO } from "../../data/contentDTOs";
+import { ContentDTO, LinkDTO } from "../../data/contentDTOs";
 import MessageDTO from "../../data/messageDTO";
 import { tokenAtom } from "../../stateAtoms";
 
 type LinkModalProps = {
   action: "edit" | "delete" | "add";
   link: LinkDTO;
-  invisible: boolean;
-  setInvisible: Dispatch<SetStateAction<boolean>>;
+  hideSelf: () => void;
   content: ContentDTO;
 };
 
 const LinkModal = (props: LinkModalProps) => {
-  const [categoryId, setCategoryId] = useState(-1);
-  const [title, setTitle] = useState("");
-  const [url, setURL] = useState("");
+  const [categoryId, setCategoryId] = useState(props.link.categoryId);
+  const [title, setTitle] = useState(props.link.title);
+  const [url, setURL] = useState(props.link.url);
   const [error, setError] = useState("");
-  const [origin, setOrigin] = useState(props.link);
   const token = useRecoilValue(tokenAtom);
 
   // React Queries
 
-  const query = useMutation("deleteLink", deleteLink, {
+  const deleteLinkMutation = useMutation("deleteLink", deleteLink, {
     onSettled: (res) => {
       // Custom Error
       if (res?.Error) {
@@ -32,7 +30,21 @@ const LinkModal = (props: LinkModalProps) => {
       }
 
       if (res?.Message && res.Message === "Success") {
+        props.hideSelf();
+      }
+    },
+  });
+
+  const editLinkMutation = useMutation("editLink", editLink, {
+    onSettled: (res) => {
+      // Custom Error
+      if (res?.Error) {
+        setError(res.Error);
         return;
+      }
+
+      if (res?.Message && res.Message === "Success") {
+        props.hideSelf();
       }
     },
   });
@@ -48,6 +60,28 @@ const LinkModal = (props: LinkModalProps) => {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch {
+      return { Message: "Server Error" };
+    }
+
+    return await res.json();
+  }
+
+  async function editLink(): Promise<MessageDTO> {
+    let res;
+    console.log(JSON.stringify({ categoryId, title, url }));
+    try {
+      res = await fetch(
+        `${import.meta.env.VITE_SOLOLINK_API}/Link/${props.link.linkId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ categoryId, title, url }),
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
         }
       );
@@ -80,7 +114,7 @@ const LinkModal = (props: LinkModalProps) => {
             type="text"
             name="title"
             id="title"
-            defaultValue={origin.title}
+            defaultValue={props.link.title}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
@@ -93,7 +127,7 @@ const LinkModal = (props: LinkModalProps) => {
             type="text"
             name="url"
             id="url"
-            defaultValue={origin.url}
+            defaultValue={props.link.url}
             onChange={(e) => {
               setURL(e.target.value);
             }}
@@ -105,10 +139,9 @@ const LinkModal = (props: LinkModalProps) => {
           <select
             name="url"
             id="url"
-            defaultValue={
-              props.content.categoryDtos?.at(origin.categoryId)?.title
-            }
+            defaultValue={props.link.categoryId}
             onChange={(e) => {
+              console.log(e.target.value);
               setCategoryId(parseInt(e.target.value));
             }}
             className="text-black bg-white my-4 w-full h-8 rounded text-center border-2 border-black"
@@ -136,9 +169,7 @@ const LinkModal = (props: LinkModalProps) => {
 
   return (
     <div
-      className={`fixed z-10 inset-0 overflow-y-auto ${
-        props.invisible && "invisible"
-      }`}
+      className={`fixed z-10 inset-0 overflow-y-auto`}
       aria-labelledby="modal-title"
       role="dialog"
       aria-modal="true"
@@ -166,6 +197,11 @@ const LinkModal = (props: LinkModalProps) => {
                 <div className="mt-2">
                   <div className="text-sm text-gray-500">{getBody()}</div>
                 </div>
+                {error && (
+                  <div className="mt-2">
+                    <div className="text-sm text-red-400">{error}</div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -174,7 +210,7 @@ const LinkModal = (props: LinkModalProps) => {
               id="login"
               className="mx-4 w-24 h-10 rounded bg-slate-400 hover:bg-slate-300"
               onClick={() => {
-                props.setInvisible(true);
+                props.hideSelf();
               }}
             >
               Cancel
@@ -183,7 +219,11 @@ const LinkModal = (props: LinkModalProps) => {
               id="login"
               className="mx-4 w-24 h-10 rounded bg-green-500 hover:bg-green-400"
               onClick={() => {
-                props.setInvisible(true);
+                if (props.action === "delete") {
+                  deleteLinkMutation.mutateAsync();
+                } else if (props.action === "edit") {
+                  editLinkMutation.mutateAsync();
+                }
               }}
             >
               Save
