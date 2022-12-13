@@ -1,29 +1,25 @@
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
-import { ContentDTO, LinkDTO } from "../../data/contentDTOs";
+import { ContentDTO, CategoryDTO } from "../../data/contentDTOs";
 import MessageDTO from "../../data/messageDTO";
 import { tokenAtom } from "../../stateAtoms";
 
-type LinkModalProps = {
+type CategoryModalProps = {
   action: "edit" | "delete" | "add";
-  link: LinkDTO;
+  Category: CategoryDTO;
   hideSelf: () => void;
   content: ContentDTO;
 };
 
-const LinkModal = (props: LinkModalProps) => {
-  const [categoryId, setCategoryId] = useState(
-    props.content.categoryDtos?.at(0)?.categoryId
-  );
-  const [title, setTitle] = useState(props.link.title);
-  const [url, setURL] = useState(props.link.url);
+const CategoryModal = (props: CategoryModalProps) => {
+  const [title, setTitle] = useState(props.Category.title);
   const [error, setError] = useState("");
   const token = useRecoilValue(tokenAtom);
 
   // React Queries
 
-  const deleteLinkMutation = useMutation("deleteLink", deleteLink, {
+  const deleteCategoryMutation = useMutation("deleteCategory", deleteCategory, {
     onSettled: (res) => {
       // Custom Error
       if (res?.Error) {
@@ -37,7 +33,7 @@ const LinkModal = (props: LinkModalProps) => {
     },
   });
 
-  const editLinkMutation = useMutation("editLink", editLink, {
+  const editCategoryMutation = useMutation("editCategory", editCategory, {
     onSettled: (res) => {
       // Custom Error
       if (res?.Error) {
@@ -51,7 +47,7 @@ const LinkModal = (props: LinkModalProps) => {
     },
   });
 
-  const addLinkMutation = useMutation("addLink", addLink, {
+  const addCategoryMutation = useMutation("addCategory", addCategory, {
     onSettled: (res) => {
       // Custom Error
       if (res?.Error) {
@@ -65,13 +61,15 @@ const LinkModal = (props: LinkModalProps) => {
     },
   });
 
-  // Create, Update, Delete requests for Link
+  // Create, Update, Delete requests for Category
 
-  async function deleteLink(): Promise<MessageDTO> {
+  async function deleteCategory(): Promise<MessageDTO> {
     let res;
     try {
       res = await fetch(
-        `${import.meta.env.VITE_SOLOLINK_API}/Link/${props.link.linkId}`,
+        `${import.meta.env.VITE_SOLOLINK_API}/Category/${
+          props.Category.categoryId
+        }`,
         {
           method: "DELETE",
           headers: {
@@ -86,15 +84,16 @@ const LinkModal = (props: LinkModalProps) => {
     return await res.json();
   }
 
-  async function editLink(): Promise<MessageDTO> {
+  async function editCategory(): Promise<MessageDTO> {
     let res;
-    console.log(JSON.stringify({ categoryId, title, url }));
     try {
       res = await fetch(
-        `${import.meta.env.VITE_SOLOLINK_API}/Link/${props.link.linkId}`,
+        `${import.meta.env.VITE_SOLOLINK_API}/Category/${
+          props.Category.categoryId
+        }`,
         {
           method: "PUT",
-          body: JSON.stringify({ categoryId, title, url }),
+          body: JSON.stringify({ title }),
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
@@ -108,13 +107,12 @@ const LinkModal = (props: LinkModalProps) => {
     return await res.json();
   }
 
-  async function addLink(): Promise<MessageDTO> {
+  async function addCategory(): Promise<MessageDTO> {
     let res;
-    console.log(JSON.stringify({ categoryId, title, url }));
     try {
-      res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Link`, {
+      res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Category`, {
         method: "POST",
-        body: JSON.stringify({ categoryId, title, url }),
+        body: JSON.stringify({ title }),
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -130,11 +128,11 @@ const LinkModal = (props: LinkModalProps) => {
   // Condtional content functions
   const getTitle = () => {
     if (props.action === "edit") {
-      return "Edit Item";
+      return "Edit Category";
     } else if (props.action === "delete") {
-      return "Delete Item";
+      return "Delete Category";
     } else {
-      return "Add Item";
+      return "Add Category";
     }
   };
 
@@ -149,48 +147,21 @@ const LinkModal = (props: LinkModalProps) => {
             type="text"
             name="title"
             id="title"
-            defaultValue={props.link.title}
+            defaultValue={props.Category.title}
             onChange={(e) => {
               setTitle(e.target.value);
             }}
             className="text-black bg-white my-4 w-full h-8 rounded text-center border-2 border-black"
           />
-          <label htmlFor="password" className="text-xl my-2">
-            URL
-          </label>
-          <input
-            type="text"
-            name="url"
-            id="url"
-            defaultValue={props.link.url}
-            onChange={(e) => {
-              setURL(e.target.value);
-            }}
-            className="text-black bg-white my-4 w-full h-8 rounded text-center border-2 border-black"
-          />
-          <label htmlFor="password" className="text-xl my-2">
-            Category
-          </label>
-          <select
-            name="url"
-            id="url"
-            defaultValue={props.content.categoryDtos?.at(0)?.categoryId}
-            onChange={(e) => {
-              console.log(e.target.value);
-              setCategoryId(parseInt(e.target.value));
-            }}
-            className="text-black bg-white my-4 w-full h-8 rounded text-center border-2 border-black"
-          >
-            {props.content.categoryDtos?.map((c, i) => {
-              return <option value={c.categoryId}>{c.title}</option>;
-            })}
-          </select>
         </div>
       );
     }
     return (
       <div>
-        <p>Are you sure you want to delete this link ({props.link.title})?</p>
+        <p>
+          Are you sure you want to delete this category ({props.Category.title}
+          )?
+        </p>
       </div>
     );
   };
@@ -248,11 +219,11 @@ const LinkModal = (props: LinkModalProps) => {
               className="mx-4 w-24 h-10 rounded bg-green-500 hover:bg-green-400"
               onClick={() => {
                 if (props.action === "delete") {
-                  deleteLinkMutation.mutateAsync();
+                  deleteCategoryMutation.mutateAsync();
                 } else if (props.action === "edit") {
-                  editLinkMutation.mutateAsync();
+                  editCategoryMutation.mutateAsync();
                 } else {
-                  addLinkMutation.mutateAsync();
+                  addCategoryMutation.mutateAsync();
                 }
               }}
             >
@@ -265,4 +236,4 @@ const LinkModal = (props: LinkModalProps) => {
   );
 };
 
-export default LinkModal;
+export default CategoryModal;
