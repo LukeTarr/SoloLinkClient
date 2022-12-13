@@ -61,7 +61,7 @@ const Profile = () => {
                     {content.linkDtos?.map((l) => {
                       if (l.categoryId === category.categoryId) {
                         return (
-                          <div className="bg-blue-500 hover:bg-blue-300 text-white rounded-3xl mt-10 h-8 w-1/4 text-center shadow-lg">
+                          <div className="bg-blue-500 hover:bg-blue-300 text-white rounded-3xl mt-10 h-8 w-full md:w-1/2 text-center shadow-lg">
                             <a href={l.url}>
                               <h1>{l.title}</h1>
                             </a>

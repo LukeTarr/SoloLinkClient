@@ -121,7 +121,7 @@ const Studio = () => {
                           <div className="mt-10 h-8 w-full md:w-1/2 text-center flex justify-between">
                             <a
                               href={l.url}
-                              className="bg-blue-500 hover:bg-blue-300 text-white rounded-3xl w-full"
+                              className="bg-blue-500 hover:bg-blue-300 text-white rounded-3xl w-full shadow-lg"
                             >
                               <h1 key={l.linkId}>{l.title}</h1>
                             </a>
