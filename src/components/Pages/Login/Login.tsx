@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import LoginDto from "../../../data/LoginDTO";
 import { tokenAtom } from "../../../stateAtoms";
+import MainCard from "../../MainCard/MainCard";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -68,9 +69,9 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex justify-center items-center">
       <Toaster />
-      <div className="flex flex-col justify-center items-center m-20 mb-10 p-16 bg-gray-400 rounded-3xl text-center w-full md:w-1/2 shadow-2xl">
+      <MainCard>
         <h1 className="text-3xl mb-8">Login</h1>
         <div className="flex flex-col mb-8 items-center justify-center">
           <label htmlFor="email" className="text-xl my-2">
@@ -107,10 +108,10 @@ const Login = () => {
               mut.mutateAsync();
             }}
           >
-            LOGIN →
+            Login →
           </button>
         </div>
-      </div>
+      </MainCard>
     </div>
   );
 };

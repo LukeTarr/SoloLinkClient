@@ -9,10 +9,10 @@ const Dashboard = () => {
     <div className="flex flex-col md:flex-row items-center justify-center mt-6 md:mt-40 ">
       <DashCard
         component={() => {
-          navigate("/Dashboard");
+          navigate("/Account");
         }}
         icon={<CgProfile className="w-24 h-24" />}
-        title={"Acount (Coming Soon)"}
+        title={"Acount"}
         subtext={"Edit account settings"}
       />
 

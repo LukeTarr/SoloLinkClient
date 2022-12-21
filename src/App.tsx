@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import Home from "./components/Pages//Home/Home";
 import Login from "./components/Pages//Login/Login";
 import Nav from "./components/Pages//Nav/Nav";
+import Account from "./components/Pages/Account/Account";
 import Dashboard from "./components/Pages/Dashboard/Dashboard";
 import Profile from "./components/Pages/Profile/Profile";
 import Register from "./components/Pages/Register/Register";
@@ -31,6 +32,7 @@ const App = () => {
             <>
               <Route path="/Dashboard" element={<Dashboard />} />
               <Route path="/Studio" element={<Studio />} />
+              <Route path="/Account" element={<Account />} />
             </>
           )}
         </Routes>

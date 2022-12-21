@@ -3,6 +3,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
 import RegisterDTO from "../../../data/RegisterDTO";
+import MainCard from "../../MainCard/MainCard";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -79,7 +80,7 @@ const Register = () => {
   return (
     <div className="flex justify-center items-center">
       <Toaster />
-      <div className="flex flex-col justify-center items-center m-20 p-16 bg-gray-400 rounded-3xl text-center w-full md:w-1/2 shadow-2xl">
+      <MainCard>
         <h1 className="text-3xl mb-8">Register</h1>
         <div className="flex flex-col mb-8 items-center justify-center">
           <label htmlFor="email" className="text-xl my-2">
@@ -140,10 +141,10 @@ const Register = () => {
               mut.mutateAsync();
             }}
           >
-            REGISTER →
+            Register →
           </button>
         </div>
-      </div>
+      </MainCard>
     </div>
   );
 };
