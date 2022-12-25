@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { useMutation } from "react-query";
 import { useNavigate } from "react-router-dom";
-import RegisterDTO from "../../../data/RegisterDTO";
+import RegisterDTO from "../../../data/registerDTO";
 import MainCard from "../../MainCard/MainCard";
 
 const Register = () => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 import { ContentDTO } from "../../../data/contentDTOs";
 
@@ -7,7 +7,7 @@ const Profile = () => {
   const { username } = useParams();
   const [content, setContent] = useState({} as ContentDTO);
   const [error, setError] = useState("");
-  const query = useQuery("content", getContent, {
+  const contentQuery = useQuery("content", getContent, {
     refetchOnWindowFocus: false,
     onSettled: (res) => {
       // Custom Error
@@ -23,10 +23,14 @@ const Profile = () => {
       // Success
       if (res?.username) {
         setContent(res);
+        viewCountMutation.mutateAsync();
         return;
       }
     },
   });
+
+  const viewCountMutation = useMutation("pageView", postPageView);
+
 
   async function getContent(): Promise<ContentDTO> {
     let res;
@@ -43,6 +47,22 @@ const Profile = () => {
 
     return await res.json();
   }
+
+    async function postPageView(): Promise<ContentDTO> {
+      let res;
+      try {
+        res = await fetch(
+          `${import.meta.env.VITE_SOLOLINK_API}/PageView/IncrementViewCount/${username}`,
+          {
+            method: "POST",
+          }
+        );
+      } catch {
+        return { title: "Server Error" };
+      }
+
+      return await res.json();
+    }
 
   return (
     <div className="flex items-center justify-center mt-20">

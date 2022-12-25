@@ -27,10 +27,10 @@ const Dashboard = () => {
 
       <DashCard
         component={() => {
-          navigate("/Dashboard");
+          navigate("/Analytics");
         }}
         icon={<CgInsights className="w-24 h-24" />}
-        title={"Analytics (Coming Soon)"}
+        title={"Analytics"}
         subtext={"View your page's analytics"}
       />
     </div>
