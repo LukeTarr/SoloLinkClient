@@ -1,6 +1,6 @@
 type MessageDTO = {
-    Message?: string,
-    Error?: string
+    message?: string,
+    error?: string
 }
 
 export default MessageDTO;

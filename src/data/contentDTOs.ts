@@ -1,14 +1,14 @@
 export type CategoryDTO = {
-        categoryId: number,
-        userId: number
-        title: string
+    categoryId: number,
+    userId: number
+    title: string
 }
 
 export type LinkDTO = {
-        linkId: number,
-        categoryId: number,
-        url: string,
-        title: string
+    linkId: number,
+    categoryId: number,
+    url: string,
+    title: string
 }
 
 export type ContentDTO = {
@@ -16,5 +16,5 @@ export type ContentDTO = {
     categoryDtos?: [CategoryDTO],
     linkDtos?: [LinkDTO],
     title?: string,
-    Error?: string
+    error?: string
 };

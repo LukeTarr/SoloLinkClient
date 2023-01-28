@@ -1,7 +1,7 @@
 type RegisterDTO = {
 
-    Message?: string,
-    Error?: string,
+    message?: string,
+    error?: string,
     title?: string
 
 }

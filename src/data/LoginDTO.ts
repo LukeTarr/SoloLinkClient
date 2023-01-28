@@ -1,6 +1,6 @@
 type LoginDto = {
-    Token?: string,
-    Error?: string,
+    token?: string,
+    error?: string,
     title?: string
 }
 
