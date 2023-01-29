@@ -63,13 +63,21 @@ const Analytics = () => {
         let data = [] as any;
 
         content.buckets.map((b, i) => {
-            data.push({name: b.date.split("T")[0], views: b.totalViews, uv: i, pv: i});
+            if(new Date(b.date) > new Date(Date.now() - 7  * 24 * 60 * 60 * 1000))
+            {
+                data.push({name: b.date.split("T")[0], views: b.totalViews, uv: i, pv: i});    
+            }
+            
         })
+        
+        let sorted = data.sort((a: { name: string}, b: { name: string}) => {
+            return new Date(b.name).valueOf() - new Date(a.name).valueOf();
+        }).reverse();
 
         return (
             <div className="w-full flex items-center justify-center">
-                <ResponsiveContainer width="99%" height={300}>
-                    <BarChart data={data}>
+                <ResponsiveContainer width="100%" height={300}>
+                    <BarChart data={sorted}>
                         <CartesianGrid strokeDasharray="3 3"/>
                         <XAxis dataKey="name"/>
                         <YAxis/>
@@ -83,6 +91,16 @@ const Analytics = () => {
         )
 
     }
+    
+    const totalViews = () => {
+        let sum = 0;
+        content.buckets.map(b => {
+            if(b.totalViews) {
+                sum += b.totalViews    
+            }
+        })
+        return sum;
+    }
 
     return (
         <div className="flex items-center justify-center mt-20">
@@ -93,12 +111,13 @@ const Analytics = () => {
                         <h2 className="text-3xl">{content.username}'s Analytics</h2>
                         <div className="w-full"></div>
                         <div>
-                            <h2 className="text-center mt-10 mb-10 text-2xl">Weekly Report</h2>
+                            <h2 className="text-center mt-10 mb-10 text-2xl">Weekly View Graph</h2>
                         </div>
-                        {/* TODO: Generate Bar Graph: x-axis as day, y-axis as views for that day */}
-
                         {renderGraph()}
-
+                        
+                        <div>
+                            <h2 className="text-center mt-10 mb-10 text-2xl">Total Page Views: {totalViews()}</h2>
+                        </div>
                     </>
                 ) : (
                     <>

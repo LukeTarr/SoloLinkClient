@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useMutation} from "react-query";
 import {useRecoilState} from "recoil";
-import MessageDTO from "../../data/messageDTO";
+import MessageDTO from "../../data/MessageDTO";
 import {tokenAtom} from "../../stateAtoms";
 
 type PasswordModalProps = {
@@ -20,12 +20,12 @@ const CategoryModal = (props: PasswordModalProps) => {
     const editPasswordMutation = useMutation("editCategory", editPassword, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message) {
+            if (res?.message) {
                 props.hideSelf();
             }
         },
@@ -46,7 +46,7 @@ const CategoryModal = (props: PasswordModalProps) => {
                 }
             );
         } catch {
-            return {Error: "Server Error"};
+            return {error: "Server Error"};
         }
 
         return await res.json();

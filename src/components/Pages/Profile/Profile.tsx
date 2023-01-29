@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {useMutation, useQuery} from "react-query";
 import {useParams} from "react-router-dom";
-import {ContentDTO} from "../../../data/contentDTOs";
+import {ContentDTO} from "../../../data/ContentDTOs";
 
 const Profile = () => {
     const {username} = useParams();

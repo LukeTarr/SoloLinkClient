@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {CgPen, CgTrash} from "react-icons/cg";
 import {useQuery} from "react-query";
 import {useRecoilValue} from "recoil";
-import {CategoryDTO, ContentDTO, LinkDTO} from "../../../data/contentDTOs";
+import {CategoryDTO, ContentDTO, LinkDTO} from "../../../data/ContentDTOs";
 import {tokenAtom} from "../../../stateAtoms";
 import CategoryModal from "../../Modals/CategoryModal";
 import LinkModal from "../../Modals/LinkModal";

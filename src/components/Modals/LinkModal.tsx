@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {useMutation} from "react-query";
 import {useRecoilValue} from "recoil";
-import {ContentDTO, LinkDTO} from "../../data/contentDTOs";
-import MessageDTO from "../../data/messageDTO";
+import {ContentDTO, LinkDTO} from "../../data/ContentDTOs";
+import MessageDTO from "../../data/MessageDTO";
 import {tokenAtom} from "../../stateAtoms";
 
 type LinkModalProps = {
@@ -26,12 +26,12 @@ const LinkModal = (props: LinkModalProps) => {
     const deleteLinkMutation = useMutation("deleteLink", deleteLink, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message && res.Message === "Success") {
+            if (res?.message && res.message === "success") {
                 props.hideSelf();
             }
         },
@@ -40,12 +40,12 @@ const LinkModal = (props: LinkModalProps) => {
     const editLinkMutation = useMutation("editLink", editLink, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message && res.Message === "Success") {
+            if (res?.message && res.message === "success") {
                 props.hideSelf();
             }
         },
@@ -54,12 +54,12 @@ const LinkModal = (props: LinkModalProps) => {
     const addLinkMutation = useMutation("addLink", addLink, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message && res.Message === "Success") {
+            if (res?.message && res.message === "success") {
                 props.hideSelf();
             }
         },
@@ -80,7 +80,7 @@ const LinkModal = (props: LinkModalProps) => {
                 }
             );
         } catch {
-            return {Message: "Server Error"};
+            return {message: "Server Error"};
         }
 
         return await res.json();
@@ -88,7 +88,6 @@ const LinkModal = (props: LinkModalProps) => {
 
     async function editLink(): Promise<MessageDTO> {
         let res;
-        console.log(JSON.stringify({categoryId, title, url}));
         try {
             res = await fetch(
                 `${import.meta.env.VITE_SOLOLINK_API}/Link/${props.link.linkId}`,
@@ -102,7 +101,7 @@ const LinkModal = (props: LinkModalProps) => {
                 }
             );
         } catch {
-            return {Message: "Server Error"};
+            return {message: "Server Error"};
         }
 
         return await res.json();
@@ -110,7 +109,6 @@ const LinkModal = (props: LinkModalProps) => {
 
     async function addLink(): Promise<MessageDTO> {
         let res;
-        console.log(JSON.stringify({categoryId, title, url}));
         try {
             res = await fetch(`${import.meta.env.VITE_SOLOLINK_API}/Link`, {
                 method: "POST",
@@ -121,7 +119,7 @@ const LinkModal = (props: LinkModalProps) => {
                 },
             });
         } catch {
-            return {Message: "Server Error"};
+            return {message: "Server Error"};
         }
 
         return await res.json();
@@ -176,7 +174,6 @@ const LinkModal = (props: LinkModalProps) => {
                         id="url"
                         defaultValue={props.content.categoryDtos?.at(0)?.categoryId}
                         onChange={(e) => {
-                            console.log(e.target.value);
                             setCategoryId(parseInt(e.target.value));
                         }}
                         className="text-black bg-white my-4 w-full h-8 rounded text-center border-2 border-black"

@@ -1,8 +1,8 @@
 import {useState} from "react";
 import {useMutation} from "react-query";
 import {useRecoilValue} from "recoil";
-import {CategoryDTO, ContentDTO} from "../../data/contentDTOs";
-import MessageDTO from "../../data/messageDTO";
+import {CategoryDTO, ContentDTO} from "../../data/ContentDTOs";
+import MessageDTO from '../../data/MessageDTO';
 import {tokenAtom} from "../../stateAtoms";
 
 type CategoryModalProps = {
@@ -22,12 +22,12 @@ const CategoryModal = (props: CategoryModalProps) => {
     const deleteCategoryMutation = useMutation("deleteCategory", deleteCategory, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message && res.Message === "Success") {
+            if (res?.message && res.message === "success") {
                 props.hideSelf();
             }
         },
@@ -36,12 +36,12 @@ const CategoryModal = (props: CategoryModalProps) => {
     const editCategoryMutation = useMutation("editCategory", editCategory, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message && res.Message === "Success") {
+            if (res?.message && res.message === "success") {
                 props.hideSelf();
             }
         },
@@ -50,12 +50,12 @@ const CategoryModal = (props: CategoryModalProps) => {
     const addCategoryMutation = useMutation("addCategory", addCategory, {
         onSettled: (res) => {
             // Custom Error
-            if (res?.Error) {
-                setError(res.Error);
+            if (res?.error) {
+                setError(res.error);
                 return;
             }
 
-            if (res?.Message && res.Message === "Success") {
+            if (res?.message && res.message === "success") {
                 props.hideSelf();
             }
         },
@@ -78,7 +78,7 @@ const CategoryModal = (props: CategoryModalProps) => {
                 }
             );
         } catch {
-            return {Message: "Server Error"};
+            return {message: "Server Error"};
         }
 
         return await res.json();
@@ -101,7 +101,7 @@ const CategoryModal = (props: CategoryModalProps) => {
                 }
             );
         } catch {
-            return {Message: "Server Error"};
+            return {message: "Server Error"};
         }
 
         return await res.json();
@@ -119,7 +119,7 @@ const CategoryModal = (props: CategoryModalProps) => {
                 },
             });
         } catch {
-            return {Message: "Server Error"};
+            return {message: "Server Error"};
         }
 
         return await res.json();
