@@ -28,7 +28,7 @@ const Account = () => {
                 <h2 className="text-3xl mb-10">Account</h2>
 
                 <h3 className="text-2xl mb-4">Edit</h3>
-                <div className="w-full flex flex-row justify-center items-center">
+                <div className="w-full flex flex-col justify-center items-center">
                     <button
                         id="login"
                         className="mx-4 mt-4 w-40 h-10 rounded bg-yellow-500 hover:bg-yellow-400"

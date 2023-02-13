@@ -6,6 +6,7 @@ import {CategoryDTO, ContentDTO, LinkDTO} from "../../../data/ContentDTOs";
 import {tokenAtom} from "../../../stateAtoms";
 import CategoryModal from "../../Modals/CategoryModal";
 import LinkModal from "../../Modals/LinkModal";
+import toast, {Toaster} from "react-hot-toast";
 
 const Studio = () => {
     const token = useRecoilValue(tokenAtom);
@@ -87,6 +88,7 @@ const Studio = () => {
                     content={content}
                 />
             )}
+            <Toaster/>
             <div className="flex flex-col items-center justify-center w-4/5 bg-gray-400 p-4 rounded-3xl shadow-2xl">
                 {content.username ? (
                     <>
@@ -150,10 +152,10 @@ const Studio = () => {
                                     </div>
                                 );
                             })}
-                            <div className="w-full flex flex-row justify-center items-center">
+                            <div className="w-full flex flex-col justify-center items-center mt-20">
                                 <button
                                     id="login"
-                                    className="mx-4 mt-20 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
+                                    className="mx-4 mt-4 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
                                     onClick={() => {
                                         setSelectedItem({
                                             title: "Example Title",
@@ -167,7 +169,7 @@ const Studio = () => {
                                 </button>
                                 <button
                                     id="login"
-                                    className="mx-4 mt-20 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
+                                    className="mx-4 mt-4 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
                                     onClick={() => {
                                         setSelectedItem({
                                             title: "Example Title",
@@ -177,6 +179,13 @@ const Studio = () => {
                                     }}
                                 >
                                     + Category
+                                </button>
+                                <button className="mx-4 mt-4 w-40 h-10 rounded bg-green-500 hover:bg-green-400"
+                                        onClick={() => {
+                                            navigator.clipboard.writeText(`https://sololink.netlify.app/Profile/${content.username}`);
+                                            toast.success("Copied to clipboard!");
+                                        }}>
+                                    Copy Profile
                                 </button>
                             </div>
                         </div>

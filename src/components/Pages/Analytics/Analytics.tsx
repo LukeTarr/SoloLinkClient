@@ -63,14 +63,13 @@ const Analytics = () => {
         let data = [] as any;
 
         content.buckets.map((b, i) => {
-            if(new Date(b.date) > new Date(Date.now() - 7  * 24 * 60 * 60 * 1000))
-            {
-                data.push({name: b.date.split("T")[0], views: b.totalViews, uv: i, pv: i});    
+            if (new Date(b.date) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)) {
+                data.push({name: b.date.split("T")[0], views: b.totalViews, uv: i, pv: i});
             }
-            
+
         })
-        
-        let sorted = data.sort((a: { name: string}, b: { name: string}) => {
+
+        let sorted = data.sort((a: { name: string }, b: { name: string }) => {
             return new Date(b.name).valueOf() - new Date(a.name).valueOf();
         }).reverse();
 
@@ -91,12 +90,12 @@ const Analytics = () => {
         )
 
     }
-    
+
     const totalViews = () => {
         let sum = 0;
         content.buckets.map(b => {
-            if(b.totalViews) {
-                sum += b.totalViews    
+            if (b.totalViews) {
+                sum += b.totalViews
             }
         })
         return sum;
@@ -114,7 +113,7 @@ const Analytics = () => {
                             <h2 className="text-center mt-10 mb-10 text-2xl">Weekly View Graph</h2>
                         </div>
                         {renderGraph()}
-                        
+
                         <div>
                             <h2 className="text-center mt-10 mb-10 text-2xl">Total Page Views: {totalViews()}</h2>
                         </div>
