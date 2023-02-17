@@ -99,7 +99,7 @@ const Register = () => {
                         Username
                     </label>
                     <input
-                        type="username"
+                        type="text"
                         name="username"
                         id="username"
                         onChange={(e) => {

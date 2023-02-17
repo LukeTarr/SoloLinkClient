@@ -15,35 +15,44 @@ const Nav = () => {
                 </Link>
             </div>
 
-            {!token && (
-                <div className="flex items-center">
-                    <Link className="m-2 hover:text-black" to={"/Register"}>
-                        Register
-                    </Link>
-                    <Link className="m-2 hover:text-black" to={"/Login"}>
-                        Login
-                    </Link>
-                </div>
-            )}
+            <div className="items-center">
 
-            {token && (
-                <div className="navContainer">
-                    <Link className="m-2 hover:text-black" to={"/Dashboard"}>
-                        Dashboard
-                    </Link>
-                    <Link
-                        className="m-2 hover:text-black"
-                        to={"/Login"}
-                        onClick={() => {
-                            setToken("");
-                        }}
-                    >
-                        Logout
-                    </Link>
-                </div>
-            )}
+                <Link className="m-2 hover:text-black" to={"/About"}>
+                    About
+                </Link>
+
+                {!token && (
+                    <>
+                        <Link className="m-2 hover:text-black" to={"/Login"}>
+                            Login
+                        </Link>
+                        <Link className="m-2 hover:text-black" to={"/Register"}>
+                            Register
+                        </Link>
+                    </>
+                )}
+
+                {token && (
+                    <>
+                        <Link className="m-2 hover:text-black" to={"/Dashboard"}>
+                            Dashboard
+                        </Link>
+                        <Link
+                            className="m-2 hover:text-black"
+                            to={"/Login"}
+                            onClick={() => {
+                                setToken("");
+                            }}
+                        >
+                            Logout
+                        </Link>
+                    </>
+                )
+                }
+            </div>
         </div>
-    );
+    )
+        ;
 };
 
 export default Nav;

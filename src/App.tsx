@@ -11,6 +11,7 @@ import Profile from "./components/Pages/Profile/Profile";
 import Register from "./components/Pages/Register/Register";
 import Studio from "./components/Pages/Studio/Studio";
 import {tokenAtom} from "./stateAtoms";
+import About from "./components/Pages/About/About";
 
 const App = () => {
     const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => {
                 <Routes>
                     <Route path="/*" element={<Home/>}/>
                     <Route path="/Profile/:username" element={<Profile/>}/>
+                    <Route path="/About" element={<About/>}/>
                     {!token && ( // not logged in routes
                         <>
                             <Route path="/Login" element={<Login/>}/>
